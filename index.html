@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Golden Sticks Records</title>
     <style>
+        /* Aqui se ajustan los tamaños de los objetos en la tablas de la sección Artistas*/
         .artista {
             width: 30%;
         }
@@ -18,7 +19,7 @@
             width: 100%;
             height: auto;
         }
-            
+        /* este es el contenedor de spotify y slider de imagenes */    
         .contenedor {
         display: flex;
         justify-content: center;
@@ -110,6 +111,11 @@
             position: sticky;
             background-color: black;
             color: #fff;
+            top: 0;
+            background-color: #000000;
+            z-index: 1000;
+            width: 100%;
+            padding: 10px 0;
         }
         nav ul {
             list-style: none;
@@ -236,12 +242,12 @@
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#login" id="loginLink">Login</a></li>
-            <li><a href="#register" id="registerLink">Registro</a></li>
+            <li><a href="#registro" id="registroLink">Registro</a></li>
             <div class="logo">
                 <img src="img/Logo.png" alt="Logo de la página">
             </div>
-            <li><a href="#profile" id="profileLink" style="display:none;">Perfil</a></li>
-            <li><a href="#artistas" id="rankingLink">Artistas</a></li>
+            <li><a href="#perfil" id="perfilLink" style="display:none;">Perfil</a></li>
+            <li><a href="#artistas" id="artistasLink">Artistas</a></li>
             <li><a href="#ranking" id="rankingLink">Ranking de Fans</a></li>
         </ul>
     </nav> 
@@ -390,9 +396,9 @@
 
         </section>
         
-        <section id="register">
-            <h2>Register</h2>
-            <form id="registerForm">
+        <section id="registro">
+            <h2>Registro</h2>
+            <form id="registroForm">
                 <input type="text" id="rut" placeholder="RUT" required>
                 <input type="text" id="firstName" placeholder="Nombre" required>
                 <input type="text" id="lastName" placeholder="Apellidos" required>
@@ -401,6 +407,8 @@
                 <input type="submit" value="Register">
             </form>
         </section>
+
+<!-------------- Tabla de fans ------------------------------------------------------>
         <section id="ranking">
             <h2>Ranking de Fans</h2>
             <table>
@@ -408,9 +416,7 @@
                     <tr>
                         <th>Posición</th>
                         <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Email</th>
-                        <th>RUT</th>
+                        <th>Apellidos</th>                      
                         <th>Mensaje</th>
                     </tr>
                 </thead>
@@ -419,13 +425,13 @@
                 </tbody>
             </table>
         </section>
-        <section id="profile">
+        <section id="perfil">
             <h2>Perfil de Usuario</h2>
             <div id="userInfo">
                 <!-- Información del usuario se mostrará aquí -->
             </div>
             <h3>Editar Información Personal</h3>
-            <form id="editProfileForm">
+            <form id="editperfilForm">
                 <input type="text" id="editRut" placeholder="RUT" required>
                 <input type="text" id="editFirstName" placeholder="Nombre" required>
                 <input type="text" id="editLastName" placeholder="Apellidos" required>
@@ -490,7 +496,7 @@
             });
         });
 
-        document.getElementById('registerForm').addEventListener('submit', function(event) {
+        document.getElementById('registroForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const newUser = {
                 rut: document.getElementById('rut').value,
@@ -509,7 +515,7 @@
                 users.push(newUser);
                 localStorage.setItem('users', JSON.stringify(users));
                 alert('Usuario registrado con éxito!');
-                document.getElementById('registerForm').reset();
+                document.getElementById('registroForm').reset();
                 showFansList();
             }
         });
@@ -524,10 +530,10 @@
             if (loggedInUser) {
                 alert('Login exitoso!');
                 sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-                document.getElementById('profileLink').style.display = 'block';
+                document.getElementById('perfilLink').style.display = 'block';
                 document.getElementById('logoutLink').style.display = 'block';
                 document.getElementById('loginLink').style.display = 'none';
-                document.getElementById('registerLink').style.display = 'none';
+                document.getElementById('registroLink').style.display = 'none';
                 document.getElementById('userDisplay').style.display = 'block';
                 document.getElementById('userNameDisplay').textContent = `Hola, ${loggedInUser.firstName}`;
                 showProfile();
@@ -553,11 +559,11 @@
                 document.querySelectorAll('main section').forEach(section => {
                     section.classList.remove('active');
                 });
-                document.getElementById('profile').classList.add('active');
+                document.getElementById('perfil').classList.add('active');
             }
         }
 
-        document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+        document.getElementById('editperfilForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const updatedUser = {
                 rut: document.getElementById('editRut').value,
@@ -578,10 +584,10 @@
         document.getElementById('logoutLink').addEventListener('click', function(event) {
             event.preventDefault();
             sessionStorage.removeItem('loggedInUser');
-            document.getElementById('profileLink').style.display = 'none';
+            document.getElementById('perfilLink').style.display = 'none';
             document.getElementById('logoutLink').style.display = 'none';
             document.getElementById('loginLink').style.display = 'block';
-            document.getElementById('registerLink').style.display = 'block';
+            document.getElementById('registroLink').style.display = 'block';
             document.getElementById('userDisplay').style.display = 'none';
             document.getElementById('userNameDisplay').textContent = '';
             document.querySelectorAll('main section').forEach(section => {
@@ -598,8 +604,6 @@
                     <td>${index +1 }</td>
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
-                    <td>${user.email}</td>
-                    <td>${user.rut}</td>
                     <td>Tú eres el fan número ${index + 1}</td>
                 </tr>
             `).join('');
