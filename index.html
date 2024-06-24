@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Responsive Page</title>
+    <style>
+        .artista {
+            width: 30%;
+        }
+        .descripcion {
+            width: 50%;
+        }
+        .redes {
+            width: 20%;
+        }
+        .artista img {
+            width: 100%;
+            height: auto;
+        }
+            
+        .contenedor {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* Añade espacio entre .spotify y .slider-box */
+        padding: 20px; /* Añade margen entre los bordes */
+        }
+
+        .spotify, .slider-box {
+        flex: 1; /* Esto hace que ambos elementos ocupen el mismo espacio disponible */
+        max-width: 45%;
+        margin: 10px; /* Añade un margen interno */
+        }
+        .spotify {
+            padding-top: 51px;
+        }
+        .slider-box {
+            
+            height: auto;
+            margin: 50px auto 0;
+            overflow: hidden;
+            margin-bottom: 50px;
+            background-color: black;
+        }
+        .slider-box ul {
+            display: flex;
+            padding: 0;
+            width: 400%;
+            animation: slide 20s infinite alternate ease-in-out;
+            background-color: black
+        }
+        .slider-box li {    
+            width: 90%;
+            list-style: none;
+            position: relative;
+            background-color: black
+        }
+        .slider-box img {
+            width: 90%;
+            height: auto;
+        }
+        @keyframes slide {
+            0% {margin-left: 0;}
+            30% {margin-left: -80%;}
+            50% {margin-left: -160%;}
+            70% {margin-left: -240%;}
+            100% {margin-left: -320%;}
+        }
+
+        @media(max-width:991px) {
+            body {
+                padding: 80px;
+            }
+            .slider-box {
+                width: 100%;
+            }
+            .texto {
+                top: 50px;
+                padding: 0;
+            }
+        }
+        .logo img {
+            max-width: 150px; 
+            height: auto; 
+        }
+        body {
+            margin: 0;
+            color: #fbc503;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: black
+        }
+        header {
+            background-color: black;
+            color: #fbc503;
+            padding: 1rem 0;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+        header h1 {
+            margin: 0;
+        }
+        header #userDisplay {
+            display: none;
+        }
+        nav {
+            position: sticky;
+            background-color: black;
+            color: #fff;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+        nav ul li {
+            margin: 0.5rem;
+        }
+        nav a:hover {
+            color: #fff; 
+        }
+        nav ul li a {
+            color: #fbc503;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            cursor: pointer;
+        }
+        main {
+            display: grid;
+            background-color: black;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+            
+        }
+        section {
+            background-color: black;
+            padding: 1rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-width: 0;
+            display: none;
+        }
+        section.active {
+            display: block;
+            background-color: black;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form input {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+        }
+        table {
+            
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        table, th, td {
+            border: 1px solid #fbc503;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+        }
+        footer {
+            background: #000000;
+            color: #fbc503;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+            }
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 2px solid gold;
+      
+        }
+        th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: center;                
+            }
+        th {
+        background-color: gold;
+        color: black;
+        }
+        td {
+        background-color: black;
+        color: gold;
+        }
+        @media (max-width: 768px) {
+    .contenedor {
+        flex-direction: column;
+        align-items: center;
+    }
+    .spotify, .slider-box {
+        max-width: 100%;
+    }
+    .artista, .descripcion, .redes {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+    .artista img {
+        max-width: 90%;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div id="userDisplay">
+            <span id="userNameDisplay"></span>
+            <a href="#" id="logoutLink" style="display:none;">Logout</a>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#login" id="loginLink">Login</a></li>
+            <li><a href="#register" id="registerLink">Registro</a></li>
+            <div class="logo">
+                <img src="img/Logo.png" alt="Logo de la página">
+            </div>
+            <li><a href="#profile" id="profileLink" style="display:none;">Perfil</a></li>
+            <li><a href="#artistas" id="rankingLink">Artistas</a></li>
+            <li><a href="#ranking" id="rankingLink">Ranking de Fans</a></li>
+        </ul>
+    </nav> 
+
+    <main>
+        <section id="home" class="active">
+            <h2>The Golden Sticks Records</h2>
+            <p>Estudio musical</p>
+        </section>
+        <section id="login">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <input type="submit" value="Login">
+            </form>
+        </section>
+        <section id="artistas">
+            <table>
+                <thead>
+                  <tr>
+                    <th>Artista</th>
+                    <th>Descripción</th>
+                    <th>Redes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="artista">
+                      <div>
+                        <img src="img\Artistas\Artista 1.jpg" alt="Imagen del artista">
+                        
+                      </div>
+                    </td>
+                    <td class="descripcion">
+                      <div>
+                        <h1>Amesti The Gold Mind</h1>
+                        <h2> Cantante y compositor </h2>
+                        <h3> Estilos:</h3>
+                        <h3>Trap</h3>
+                        <h3>Reggaeton</h3>
+                        <h3>R & B</h3>
+                        <h3>Rap</h3>      
+                      </div>
+                    </td>
+                    <td class="redes">
+                      <div>
+                        <a href="https://www.instagram.com/amesti.thegoldmind.gsr/" target="_blank">Instagram</a><br>
+                        <a href="https://open.spotify.com/intl-es/artist/2mf8pdRoAQsZKDmpI7DqDV" target="_blank">Spotify</a><br>
+                        <a href="https://www.youtube.com/channel/UCJEUWYnQ9r3zcCTlLMAJISQ" target="_blank">YouTube</a>
+                      </div>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              
+                <tbody>
+                  <tr>
+                    <td class="artista">
+                      <div>
+                        <img src="img\Artistas\Artista 2.jpg" alt="Imagen del artista">
+                        
+                      </div>
+                    </td>
+                    <td class="descripcion">
+                      <div>
+                        <h1>Santiz Rivera</h1>
+                        <h2> Cantante, compositor, beatmaker y productor </h2>
+                        <h3> Estilos:</h3>
+                        <h3>Trap</h3>
+                        <h3>Reggaeton</h3>
+                              
+                      </div>
+                    </td>
+                    <td class="redes">
+                      <div>
+                        <a href="https://www.instagram.com/santiz.rivera_gsr/" target="_blank">Instagram</a><br>
+                        <a href="https://open.spotify.com/intl-es/artist/4Z9DmguJRxdBDKLjd2yMe1" target="_blank">Spotify</a><br>
+                        <a href="https://www.youtube.com/@santizrivera7023?app=desktop&sub_confirmation=1&sub_confirmation=1" target="_blank">YouTube</a>
+                      </div>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              
+                
+                <tbody>
+                  <tr>
+                    <td class="artista">
+                      <div>
+                        <img src="img\Artistas\Artista 3.jpg" alt="Imagen del artista">
+                        
+                      </div>
+                    </td>
+                    <td class="descripcion">
+                      <div>
+                        <h1>Lil.jaminsito</h1>
+                        <h2>Cantante </h2>
+                        <h3>Estilos:</h3>
+                        <h3>Trap</h3>
+                        <h3>Reggaeton</h3>
+                        <h3>Rap</h3>    
+                          
+                      </div>
+                    </td>
+                    <td class="redes">
+                      <div>
+                        <a href="https://www.instagram.com/lil.jaminsito/" target="_blank">Instagram</a><br>
+                        <a href="https://open.spotify.com/intl-es/artist/42tcSxkiGgMfYO3r5sdbh0" target="_blank">Spotify</a><br>
+                        <a href="https://www.youtube.com/channel/UCIAyrN7064eIl93Ms3i8pPQ" target="_blank">YouTube</a>
+                      </div>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              
+                <tbody>
+                  <tr>
+                    <td class="artista">
+                      <div>
+                        <img src="img\Artistas\Artista 4.jpg" alt="Imagen del artista">
+                        
+                      </div>
+                    </td>
+                    <td class="descripcion">
+                      <div>
+                        <h1>Haiko</h1>
+                        <h2>Beatmaker y producción </h2>
+                        <h3>Estilos:</h3>
+                        <h3>Trap</h3>
+                        <h3>Reggaeton</h3>
+                        <h3>Rap</h3>    
+                        <h3>Electrónica</h3>   
+                      </div>
+                    </td>
+                    <td class="redes">
+                      <div>
+                        <a href="https://www.instagram.com/haiko.gsr/" target="_blank">Instagram</a><br>
+                        
+                      </div>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+
+        </section>
+        
+        <section id="register">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <input type="text" id="rut" placeholder="RUT" required>
+                <input type="text" id="firstName" placeholder="Nombre" required>
+                <input type="text" id="lastName" placeholder="Apellidos" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="submit" value="Register">
+            </form>
+        </section>
+        <section id="ranking">
+            <h2>Ranking de Fans</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posición</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Email</th>
+                        <th>RUT</th>
+                        <th>Mensaje</th>
+                    </tr>
+                </thead>
+                <tbody id="fansList">
+                    <!-- Aquí se listarán todos los fans registrados -->
+                </tbody>
+            </table>
+        </section>
+        <section id="profile">
+            <h2>Perfil de Usuario</h2>
+            <div id="userInfo">
+                <!-- Información del usuario se mostrará aquí -->
+            </div>
+            <h3>Editar Información Personal</h3>
+            <form id="editProfileForm">
+                <input type="text" id="editRut" placeholder="RUT" required>
+                <input type="text" id="editFirstName" placeholder="Nombre" required>
+                <input type="text" id="editLastName" placeholder="Apellidos" required>
+                <input type="email" id="editEmail" placeholder="Email" required>
+                <input type="password" id="editPassword" placeholder="Nueva Contraseña">
+                <input type="submit" value="Guardar Cambios">
+            </form>
+        </section>
+    </main>
+    
+    <div class="contenedor">
+        <div class="spotify">
+            <iframe style="border-radius:12px" 
+            src="https://open.spotify.com/embed/playlist/2uTwICpKrBOXjRdn1SDPUB?utm_source=generator" 
+            width="100%" height="352" frameBorder="0" allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>            
+        </div>
+
+        <div class="slider-box">
+                <ul>
+                    <li>
+                        <img src="img\singles\Portada 1.jpg" alt="">
+                    </li>        
+        
+                    <li>
+                        <img src="img\singles\Portada 2.jpg" alt="">
+                    </li>  
+        
+                    <li>
+                        <img src="img\singles\Portada 3.jpg" alt="">
+                    </li>
+        
+                    <li>
+                        <img src="img\singles\Portada 4.jpg" alt="">
+                    </li>        
+        
+                    <li>
+                        <img src="img\singles\Portada 5.jpg" alt="">
+                    </li>
+                </ul>
+        </div>
+    </div>
+
+    
+    
+
+    <footer>
+        <p>&copy; 2024 Golden Sticks Records. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const sectionId = this.getAttribute('href') ? this.getAttribute('href').substring(1) : null;
+                document.querySelectorAll('main section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                if (sectionId) {
+                    document.getElementById(sectionId).classList.add('active');
+                }
+            });
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newUser = {
+                rut: document.getElementById('rut').value,
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const duplicateUser = users.find(user => user.email === newUser.email || user.rut === newUser.rut);
+
+            if (duplicateUser) {
+                alert('Ya existe un usuario registrado con el mismo correo electrónico o rut.');
+            } else {
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                alert('Usuario registrado con éxito!');
+                document.getElementById('registerForm').reset();
+                showFansList();
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const loggedInUser = users.find(user => user.email === email && user.password === password);
+
+            if (loggedInUser) {
+                alert('Login exitoso!');
+                sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                document.getElementById('profileLink').style.display = 'block';
+                document.getElementById('logoutLink').style.display = 'block';
+                document.getElementById('loginLink').style.display = 'none';
+                document.getElementById('registerLink').style.display = 'none';
+                document.getElementById('userDisplay').style.display = 'block';
+                document.getElementById('userNameDisplay').textContent = `Hola, ${loggedInUser.firstName}`;
+                showProfile();
+            } else {
+                alert('Email o contraseña incorrectos!');
+            }
+            document.getElementById('loginForm').reset();
+        });
+
+        function showProfile() {
+            const storedUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+            if (storedUser) {
+                document.getElementById('userInfo').innerHTML = `
+                    <p><strong>RUT:</strong> ${storedUser.rut}</p>
+                    <p><strong>Nombre:</strong> ${storedUser.firstName}</p>
+                    <p><strong>Apellidos:</strong> ${storedUser.lastName}</p>
+                    <p><strong>Email:</strong> ${storedUser.email}</p>
+                `;
+                document.getElementById('editRut').value = storedUser.rut;
+                document.getElementById('editFirstName').value = storedUser.firstName;
+                document.getElementById('editLastName').value = storedUser.lastName;
+                document.getElementById('editEmail').value = storedUser.email;
+                document.querySelectorAll('main section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById('profile').classList.add('active');
+            }
+        }
+
+        document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const updatedUser = {
+                rut: document.getElementById('editRut').value,
+                firstName: document.getElementById('editFirstName').value,
+                lastName: document.getElementById('editLastName').value,
+                email: document.getElementById('editEmail').value,
+                password: document.getElementById('editPassword').value || JSON.parse(sessionStorage.getItem('loggedInUser')).password
+            };
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users = users.map(user => user.email === updatedUser.email ? updatedUser : user);
+            localStorage.setItem('users', JSON.stringify(users));
+            sessionStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
+            alert('Perfil actualizado con éxito!');
+            showProfile();
+        });
+
+        document.getElementById('logoutLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            sessionStorage.removeItem('loggedInUser');
+            document.getElementById('profileLink').style.display = 'none';
+            document.getElementById('logoutLink').style.display = 'none';
+            document.getElementById('loginLink').style.display = 'block';
+            document.getElementById('registerLink').style.display = 'block';
+            document.getElementById('userDisplay').style.display = 'none';
+            document.getElementById('userNameDisplay').textContent = '';
+            document.querySelectorAll('main section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('home').classList.add('active');
+        });
+
+        function showFansList() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const fansList = document.getElementById('fansList');
+            fansList.innerHTML = users.map((user, index) => `
+                <tr>
+                    <td>${index +1 }</td>
+                    <td>${user.firstName}</td>
+                    <td>${user.lastName}</td>
+                    <td>${user.email}</td>
+                    <td>${user.rut}</td>
+                    <td>Tú eres el fan número ${index + 1}</td>
+                </tr>
+            `).join('');
+        }
+
+        showFansList();
+    </script>
+</body>
+</html>
