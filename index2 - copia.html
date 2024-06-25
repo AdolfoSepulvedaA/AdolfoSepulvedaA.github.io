@@ -13,21 +13,65 @@ Fecha de entrega: 25 de junio de 2024
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Golden Sticks Records</title>
     <style>
-        #home h1 {
-            text-align: center;
-            font-family: 'Sitka Heading', sans-serif;
+        #menuToggle {
+        display: none;
+        font-size: 24px;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 1100;
+    }
+
+    @media (max-width: 600px) {
+        nav {
+            display: none;
+            flex-direction: column;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
-        #home h3 {
-            text-align: center;
-            font-family: 'Sitka Heading', sans-serif;
+        nav.active {
+            display: flex;
         }
-  
-        .navLogo {
+        nav ul {
+            display: flex;
+            flex-direction: column;
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            margin: 10px 0;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+        }
+        #menuToggle {
+            display: block;
+            z-index: 1100;
+        }
+    }
+
+
+
+
+
+         .navLogo {
             max-width: 150px;
             height: auto;
             transition: opacity 0.5s ease;
         }  
-        
+
         /* Aqui se ajustan los tamaños de los objetos en la tablas de la sección Artistas*/
         .artista {
             width: 30%;
@@ -268,49 +312,28 @@ Fecha de entrega: 25 de junio de 2024
             <a href="#" id="logoutLink" style="display:none;">Logout</a>
         </div>
     </header>
-    
-    <nav class="navbar navbar-expand-lg bg-black">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img src="img/Logo.png" alt="Logo de la página" width="150px">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#home">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#registro" id="registroLink">Registro</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#login" id="loginLink">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#perfil" id="perfilLink" style="display:none;">Perfil</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#quienes-somos" id="quienesSomosLink">Quienes somos</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#artistas" id="artistasLink">Artistas</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#ranking" id="rankingLink">Ranking</a>
-              </li>
-              
-            </ul>
+    <button id="menuToggle">&#9776;</button>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#registro" id="registroLink">Registro</a></li>
+            <li><a href="#login" id="loginLink">Login</a></li>
+            <li><a href="#perfil" id="perfilLink" style="display:none;">Perfil</a></li>
             
-          </div>
-        </div>
-      </nav>
+            <div class="logo">
+                <img src="img/Logo.png" alt="Logo de la página" class="navLogo">
+            </div>         
+            <li><a href="#quienes-somos" id="quienesSomosLink">Quienes somos</a></li>
+            <li><a href="#artistas" id="artistasLink">Artistas</a></li>
+            <li><a href="#ranking" id="rankingLink">Ranking de Fans</a></li>
+        </ul>
+    </nav> 
 
 <!-------------------- A partir de aquí estan las secciones por las que se puede navegar en la página ----------------->
     <main>
         <section id="home" class="active">
-            <h1>The Golden Stick Records</h1>
-            <h3>Estudio musical</h3>
+            <h2>The Golden Sticks Records</h2>
+            <p>Estudio musical</p>
         </section>
 
         <section id="login">
