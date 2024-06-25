@@ -1,0 +1,787 @@
+<!--
+Alumno: Adolfo Sepúlveda 
+Rut: 18.115.575-2
+Seccion: (TI2031/V-B50-N3-P12-C1/V La Granja B5)
+Profesor: Iván Riquelme
+Fecha de entrega: 25 de junio de 2024
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Golden Sticks Records</title>
+    <style>
+        #menuToggle {
+        display: none;
+        font-size: 24px;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 1100;
+    }
+
+    @media (max-width: 600px) {
+        nav {
+            display: none;
+            flex-direction: column;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        nav.active {
+            display: flex;
+        }
+        nav ul {
+            display: flex;
+            flex-direction: column;
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            margin: 10px 0;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+        }
+        #menuToggle {
+            display: block;
+            z-index: 1100;
+        }
+    }
+
+
+
+
+
+         .navLogo {
+            max-width: 150px;
+            height: auto;
+            transition: opacity 0.5s ease;
+        }  
+
+        /* Aqui se ajustan los tamaños de los objetos en la tablas de la sección Artistas*/
+        .artista {
+            width: 30%;
+        }
+        .descripcion {
+            width: 50%;
+        }
+        .redes {
+            width: 20%;
+        }
+        .artista img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* este es el contenedor de spotify y slider de imagenes */    
+        .contenedor {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* Añade espacio entre .spotify y .slider-box */
+        padding: 20px; /* Añade margen entre los bordes */
+        }
+
+        .spotify, .slider-box {
+        flex: 1; /* Esto hace que ambos elementos ocupen el mismo espacio disponible */
+        max-width: 45%;
+        margin: 10px; /* Añade un margen interno */
+        }
+        .spotify {
+            padding-top: 51px;
+        }
+        .slider-box {
+            
+            height: auto;
+            margin: 50px auto 0;
+            overflow: hidden;
+            margin-bottom: 50px;
+            background-color: black;
+        }
+        .slider-box ul {
+            display: flex;
+            padding: 0;
+            width: 400%;
+            animation: slide 20s infinite alternate ease-in-out;
+            background-color: black
+        }
+        .slider-box li {    
+            width: 90%;
+            list-style: none;
+            position: relative;
+            background-color: black
+        }
+        .slider-box img {
+            width: 90%;
+            height: auto;
+        }
+        @keyframes slide {
+            0% {margin-left: 0;}
+            30% {margin-left: -80%;}
+            50% {margin-left: -160%;}
+            70% {margin-left: -240%;}
+            100% {margin-left: -320%;}
+        }
+
+        @media(max-width:991px) {
+            body {
+                padding: 80px;
+            }
+            .slider-box {
+                width: 100%;
+            }
+            .texto {
+                top: 50px;
+                padding: 0;
+            }
+        }
+        .logo img {
+            max-width: 150px; 
+            height: auto;
+            transition: opacity 0.5s ease;
+        }
+
+        body {
+            margin: 0;
+            color: #fbc503;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: black
+        }
+        header {
+            background-color: black;
+            color: #fbc503;
+            padding: 1rem 0;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+        header h1 {
+            margin: 0;
+        }
+        header #userDisplay {
+            display: none;
+        }
+        nav {
+            position: sticky;
+            background-color: black;
+            color: #fff;
+            top: 0;
+            background-color: #000000;
+            z-index: 1000;
+            width: 100%;
+            padding: 10px 0;
+        }
+        @media (max-width: 600px) {
+        nav {
+            display: none;
+        }
+}
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+        nav ul li {
+            margin: 0.5rem;
+        }
+        nav a:hover {
+            color: #fff; 
+        }
+        nav ul li a {
+            color: #fbc503;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            cursor: pointer;
+        }
+        main {
+            display: grid;
+            background-color: black;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+            
+        }
+        section {
+            background-color: black;
+            padding: 1rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-width: 0;
+            display: none;
+        }
+        section.active {
+            display: block;
+            background-color: black;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form input {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+        }
+        table {
+            
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        table, th, td {
+            border: 1px solid #fbc503;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+        }
+        footer {
+            background: #000000;
+            color: #fbc503;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+            }
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 2px solid gold;
+      
+        }
+        th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: center;                
+            }
+        th {
+        background-color: gold;
+        color: black;
+        }
+        td {
+        background-color: black;
+        color: gold;
+        }
+        @media (max-width: 768px) {
+    .contenedor {
+        flex-direction: column;
+        align-items: center;
+    }
+    .spotify, .slider-box {
+        max-width: 100%;
+    }
+    .artista, .descripcion, .redes {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+    .artista img {
+        max-width: 90%;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div id="userDisplay">
+            <span id="userNameDisplay"></span>
+            <a href="#" id="logoutLink" style="display:none;">Logout</a>
+        </div>
+    </header>
+    <button id="menuToggle">&#9776;</button>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#registro" id="registroLink">Registro</a></li>
+            <li><a href="#login" id="loginLink">Login</a></li>
+            <li><a href="#perfil" id="perfilLink" style="display:none;">Perfil</a></li>
+            
+            <div class="logo">
+                <img src="img/Logo.png" alt="Logo de la página" class="navLogo">
+            </div>         
+            <li><a href="#quienes-somos" id="quienesSomosLink">Quienes somos</a></li>
+            <li><a href="#artistas" id="artistasLink">Artistas</a></li>
+            <li><a href="#ranking" id="rankingLink">Ranking de Fans</a></li>
+        </ul>
+    </nav> 
+
+<!-------------------- A partir de aquí estan las secciones por las que se puede navegar en la página ----------------->
+    <main>
+        <section id="home" class="active">
+            <h2>The Golden Sticks Records</h2>
+            <p>Estudio musical</p>
+        </section>
+
+        <section id="login">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <input type="submit" value="Login">
+            </form>
+        </section>
+
+                
+        <section id="quienes-somos">
+            <h2>Quienes somos</h2>
+            <p>The Golden Sticks Records fue concebido el año 2023 por sus fundadores Santiz Rivera, 
+                Fumador de flores, y Amesti. Comprometido con su trabajo Santi Rivera opera como productor
+                de los beats y también como ingeniero de sonido, el es quien realiza y entrega el máster 
+                del producto final. Amesti destaca por sus habilidades en composición musical, confección
+                de letras, coach, y cantante. Fumador de flores funcionaba como beatmaker y cantante, 
+                pero decide abandonar por motivos personales. Con la salida de Fumador de flores se produce
+                una vacante que fue rápidamente ocupada por Haiko quien es un talentoso beatmaker y cantante.
+                Actualmente buscamos talento que quiera sumarse a nuestras filas.
+            </p>
+        </section>
+        
+        <section id="artistas">
+            <table>
+                <thead>
+                  <tr>
+                    <th>Artista</th>
+                    <th>Descripción</th>
+                    <th>Redes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="artista">
+                      <div>
+                        <img src="img\Artistas\Artista 1.jpg" alt="Imagen del artista">
+                        
+                      </div>
+                    </td>
+                    <td class="descripcion">
+                      <div>
+                        <h1>Amesti The Gold Mind</h1>
+                        <h2> Cantante y compositor </h2>
+                        <h3> Estilos:</h3>
+                        <h3>Trap</h3>
+                        <h3>Reggaeton</h3>
+                        <h3>R & B</h3>
+                        <h3>Rap</h3>      
+                      </div>
+                    </td>
+                    <td class="redes">
+                      <div>
+                        <a href="https://www.instagram.com/amesti.thegoldmind.gsr/" target="_blank">Instagram</a><br>
+                        <a href="https://open.spotify.com/intl-es/artist/2mf8pdRoAQsZKDmpI7DqDV" target="_blank">Spotify</a><br>
+                        <a href="https://www.youtube.com/channel/UCJEUWYnQ9r3zcCTlLMAJISQ" target="_blank">YouTube</a>
+                      </div>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              
+                <tbody>
+                  <tr>
+                    <td class="artista">
+                      <div>
+                        <img src="img\Artistas\Artista 2.jpg" alt="Imagen del artista">
+                        
+                      </div>
+                    </td>
+                    <td class="descripcion">
+                      <div>
+                        <h1>Santiz Rivera</h1>
+                        <h2> Cantante, compositor, beatmaker y productor </h2>
+                        <h3> Estilos:</h3>
+                        <h3>Trap</h3>
+                        <h3>Reggaeton</h3>
+                              
+                      </div>
+                    </td>
+                    <td class="redes">
+                      <div>
+                        <a href="https://www.instagram.com/santiz.rivera_gsr/" target="_blank">Instagram</a><br>
+                        <a href="https://open.spotify.com/intl-es/artist/4Z9DmguJRxdBDKLjd2yMe1" target="_blank">Spotify</a><br>
+                        <a href="https://www.youtube.com/@santizrivera7023?app=desktop&sub_confirmation=1&sub_confirmation=1" target="_blank">YouTube</a>
+                      </div>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              
+                
+                <tbody>
+                  <tr>
+                    <td class="artista">
+                      <div>
+                        <img src="img\Artistas\Artista 3.jpg" alt="Imagen del artista">
+                        
+                      </div>
+                    </td>
+                    <td class="descripcion">
+                      <div>
+                        <h1>Lil.jaminsito</h1>
+                        <h2>Cantante </h2>
+                        <h3>Estilos:</h3>
+                        <h3>Trap</h3>
+                        <h3>Reggaeton</h3>
+                        <h3>Rap</h3>    
+                          
+                      </div>
+                    </td>
+                    <td class="redes">
+                      <div>
+                        <a href="https://www.instagram.com/lil.jaminsito/" target="_blank">Instagram</a><br>
+                        <a href="https://open.spotify.com/intl-es/artist/42tcSxkiGgMfYO3r5sdbh0" target="_blank">Spotify</a><br>
+                        <a href="https://www.youtube.com/channel/UCIAyrN7064eIl93Ms3i8pPQ" target="_blank">YouTube</a>
+                      </div>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              
+                <tbody>
+                  <tr>
+                    <td class="artista">
+                      <div>
+                        <img src="img\Artistas\Artista 4.jpg" alt="Imagen del artista">
+                        
+                      </div>
+                    </td>
+                    <td class="descripcion">
+                      <div>
+                        <h1>Haiko</h1>
+                        <h2>Beatmaker y producción </h2>
+                        <h3>Estilos:</h3>
+                        <h3>Trap</h3>
+                        <h3>Reggaeton</h3>
+                        <h3>Rap</h3>    
+                        <h3>Electrónica</h3>   
+                      </div>
+                    </td>
+                    <td class="redes">
+                      <div>
+                        <a href="https://www.instagram.com/haiko.gsr/" target="_blank">Instagram</a><br>
+                        
+                      </div>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+
+        </section>
+        
+        <section id="registro">
+            <h2>Registro</h2>
+            <form id="registroForm">
+                <input type="text" id="rut" placeholder="RUT" required>
+                <input type="text" id="firstName" placeholder="Nombre" required>
+                <input type="text" id="lastName" placeholder="Apellidos" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <label for="mayorEdad">
+                    <input type="checkbox" id="mayorEdad" required> Soy mayor de 18 años
+                </label>
+                <input type="submit" value="Register">
+            </form>
+        </section>
+
+        
+        <section id="ranking">
+            <h2>Ranking de Fans</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posición</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>                      
+                        <th>Mensaje</th>
+                        <th>Fecha de registro</th>
+                    </tr>
+                </thead>
+                <tbody id="fansList">
+                    <!-------------- Aquí se listarán todos los fans registrados ---------------->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="perfil">
+            <h2>Perfil de Usuario</h2>
+            <div id="userInfo">
+                <!------------------- Información del usuario se mostrará aquí ------------------->
+            </div>
+            <h3>Editar Información Personal</h3>
+            <form id="editperfilForm">
+                <input type="text" id="editRut" placeholder="RUT" required>
+                <input type="text" id="editFirstName" placeholder="Nombre" required>
+                <input type="text" id="editLastName" placeholder="Apellidos" required>
+                <input type="email" id="editEmail" placeholder="Email" required>
+                <input type="password" id="editPassword" placeholder="Nueva Contraseña">
+                <input type="submit" value="Guardar Cambios">
+            </form>
+        </section>
+    </main>
+    
+    <div class="contenedor">
+        <div class="spotify">
+            <iframe style="border-radius:12px" 
+            src="https://open.spotify.com/embed/playlist/2uTwICpKrBOXjRdn1SDPUB?utm_source=generator" 
+            width="100%" height="352" frameBorder="0" allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>            
+        </div>
+
+        <div class="slider-box">
+                <ul>
+                    <li>
+                        <img src="img\singles\Portada 1.jpg" alt="">
+                    </li>        
+        
+                    <li>
+                        <img src="img\singles\Portada 2.jpg" alt="">
+                    </li>  
+        
+                    <li>
+                        <img src="img\singles\Portada 3.jpg" alt="">
+                    </li>
+        
+                    <li>
+                        <img src="img\singles\Portada 4.jpg" alt="">
+                    </li>        
+        
+                    <li>
+                        <img src="img\singles\Portada 5.jpg" alt="">
+                    </li>
+                </ul>
+        </div>
+    </div>
+
+    
+    
+
+    <footer>
+        <p>&copy; 2024 Golden Sticks Records. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // ---------------- Función n°1: Manejo de eventos de click en enlace de navegación -----------//
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const sectionId = this.getAttribute('href') ? this.getAttribute('href').substring(1) : null;
+                document.querySelectorAll('main section').forEach(section => {
+                section.classList.remove('active');
+                });
+                if (sectionId) {
+                    document.getElementById(sectionId).classList.add('active');
+                }
+            });
+        });
+        
+        // ---------------- Función n°2: Manejo de eventos de scroll para aplicar fade al logo del menú nav -----------//
+        window.addEventListener('scroll', function() {
+        const navLogo = document.querySelector('.navLogo');
+        if (window.scrollY > 100) {
+            navLogo.style.opacity = '0.2';
+        } else {
+            navLogo.style.opacity = '1';
+        }
+    });  
+        // ---------------- Función n°3: Manejo de eventos de scroll para aplicar fade al menú nav -----------//
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            
+            if (window.scrollY > 100) {
+                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';                                       
+            }             
+            else {
+                nav.style.backgroundColor = 'black';                                          
+            }
+        });
+         
+        
+        // ---------------- Función n°4: Manejo de eventos de formulario para registrar nuevo usuario -----------//
+        document.getElementById('registroForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newUser = {
+                rut: document.getElementById('rut').value,
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                registrationDate: new Date().toLocaleDateString() // Formato de fecha legible
+            };
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const duplicateUser = users.find(user => user.email === newUser.email || user.rut === newUser.rut);
+
+            if (duplicateUser) {
+                alert('Ya existe un usuario registrado con el mismo correo electrónico o rut.');
+            } 
+            else {
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                alert('Usuario registrado con éxito!');
+                document.getElementById('registroForm').reset();
+                showFansList();
+            }
+        });
+
+        // ---------------- Función n°5: Manejo de eventos de formulario para iniciar sesión -----------//
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const loggedInUser = users.find(user => user.email === email && user.password === password);
+
+            if (loggedInUser) {
+                alert('Login exitoso!');
+                sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                document.getElementById('perfilLink').style.display = 'block';
+                document.getElementById('logoutLink').style.display = 'block';
+                document.getElementById('loginLink').style.display = 'none';
+                document.getElementById('registroLink').style.display = 'none';
+                document.getElementById('userDisplay').style.display = 'block';
+                document.getElementById('userNameDisplay').textContent = `Hola, ${loggedInUser.firstName}`;
+                showProfile();
+            } else {
+                alert('Email o contraseña incorrectos!');
+            }
+            document.getElementById('loginForm').reset();
+        });
+
+        // ---------------- Función n°6: Mostrar perfil de usuario -----------//
+        function showProfile() {
+            const storedUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+            if (storedUser) {
+                document.getElementById('userInfo').innerHTML = `
+                    <p><strong>RUT:</strong> ${storedUser.rut}</p>
+                    <p><strong>Nombre:</strong> ${storedUser.firstName}</p>
+                    <p><strong>Apellidos:</strong> ${storedUser.lastName}</p>
+                    <p><strong>Email:</strong> ${storedUser.email}</p>
+                `;
+                document.getElementById('editRut').value = storedUser.rut;
+                document.getElementById('editFirstName').value = storedUser.firstName;
+                document.getElementById('editLastName').value = storedUser.lastName;
+                document.getElementById('editEmail').value = storedUser.email;
+                document.querySelectorAll('main section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById('perfil').classList.add('active');
+            }
+        }
+
+        // ---------------- Función n°7: Editar usuarios registrados -----------//
+        document.getElementById('editperfilForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const updatedUser = {
+                rut: document.getElementById('editRut').value,
+                firstName: document.getElementById('editFirstName').value,
+                lastName: document.getElementById('editLastName').value,
+                email: document.getElementById('editEmail').value,
+                password: document.getElementById('editPassword').value || JSON.parse(sessionStorage.getItem('loggedInUser')).password
+            };
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users = users.map(user => user.email === updatedUser.email ? updatedUser : user);
+            localStorage.setItem('users', JSON.stringify(users));
+            sessionStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
+            alert('Perfil actualizado con éxito!');
+            showProfile();
+        });
+
+        // ---------------- Función n°8: Cerrar sesión -----------//
+        // Se ejecuta al cargar la página para mostrar los fans registrados//
+        document.getElementById('logoutLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            //Aqui se elimina el usuario logueado del sessionStorage//
+            sessionStorage.removeItem('loggedInUser');
+
+            //Aqui se ocultan los enlaces de perfil y logout y se muestran los enlaces de login y registro//
+            document.getElementById('perfilLink').style.display = 'none';
+            document.getElementById('logoutLink').style.display = 'none';
+            document.getElementById('loginLink').style.display = 'block';
+            document.getElementById('registroLink').style.display = 'block';
+            document.getElementById('userDisplay').style.display = 'none';
+            document.getElementById('userNameDisplay').textContent = '';
+            document.querySelectorAll('main section').forEach(section => {
+                section.classList.remove('active');
+            });
+            //Aqui se muestra la sección de inicio//
+            document.getElementById('home').classList.add('active');
+        });
+
+        // ---- Función n°9: Se utiliza el metodo "map" para crear una tabla utilizando el contenido del array "users" ----//
+        function showFansList() {
+            //Aqui se obtienen los usuarios registrados del localStorage//
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            //Aqui se obtiene el elemento HTML donde se mostrarán los fans registrados//
+            const fansList = document.getElementById('fansList');
+
+            //Aqui se utiliza el metodo "map" para crear una tabla con los datos de los usuarios registrados//
+            fansList.innerHTML = users.map((user, index) => ` 
+                <tr>
+                    <td>${index +1 }</td>
+                    <td>${user.firstName}</td>
+                    <td>${user.lastName}</td>
+                    <td>Tú eres el fan número ${index + 1}</td>
+                    <td>${user.registrationDate}</td>
+                </tr>
+            `).join(''); //Aqui se unen los elementos del array con un string vacío//
+        }  
+        // Función para manejar el click en #menuToggle y mostrar/ocultar el menú nav
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('active'); // Alterna la clase 'active' en el nav
+
+            // Cambia el ícono del menúToggle basado en si el menú está activo o no
+            if (nav.classList.contains('active')) {
+                this.innerHTML = '&times;'; // Cambia a una X (cierre)
+            } else {
+                this.innerHTML = '&#9776;'; // Cambia de nuevo al ícono de menú
+            }
+        });
+        // Función para ajustar la visibilidad del menú en función del ancho de la ventana
+        function adjustMenuVisibility() {
+    const nav = document.querySelector('nav');
+    const menuToggle = document.getElementById('menuToggle');
+
+    // Obtener el ancho actual de la ventana
+    const windowWidth = window.innerWidth;
+
+    // Si el ancho de la ventana es menor o igual a 768px, mostrar el menú; de lo contrario, ocultarlo
+    if (windowWidth <= 768) {
+        nav.style.display = 'none'; // Asegura que el menú esté oculto por defecto en pantallas pequeñas
+        menuToggle.style.display = 'block'; // Asegura que el botón sea visible
+    } else {
+        nav.style.display = 'flex'; // Muestra el menú en pantallas más grandes
+        menuToggle.style.display = 'none'; // Oculta el botón en pantallas más grandes
+    }
+}
+
+// Llama a adjustMenuVisibility() cuando la página se carga y cuando se cambia el tamaño de la ventana
+        window.addEventListener('DOMContentLoaded', adjustMenuVisibility);
+        window.addEventListener('resize', adjustMenuVisibility);
+    </script>
+</body>
+</html>

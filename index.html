@@ -1,3 +1,11 @@
+<!--
+Alumno: Adolfo Sepúlveda 
+Rut: 18.115.575-2
+Seccion: (TI2031/V-B50-N3-P12-C1/V La Granja B5)
+Profesor: Iván Riquelme
+Fecha de entrega: 25 de junio de 2024
+-->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,6 +13,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Golden Sticks Records</title>
     <style>
+         .navLogo {
+            max-width: 150px;
+            height: auto;
+            transition: opacity 0.5s ease;
+        }  
+
         /* Aqui se ajustan los tamaños de los objetos en la tablas de la sección Artistas*/
         .artista {
             width: 30%;
@@ -19,6 +33,7 @@
             width: 100%;
             height: auto;
         }
+
         /* este es el contenedor de spotify y slider de imagenes */    
         .contenedor {
         display: flex;
@@ -82,8 +97,10 @@
         }
         .logo img {
             max-width: 150px; 
-            height: auto; 
+            height: auto;
+            transition: opacity 0.5s ease;
         }
+
         body {
             margin: 0;
             color: #fbc503;
@@ -117,6 +134,11 @@
             width: 100%;
             padding: 10px 0;
         }
+        @media (max-width: 600px) {
+        nav {
+            display: none;
+        }
+}
         nav ul {
             list-style: none;
             display: flex;
@@ -241,22 +263,26 @@
     <nav>
         <ul>
             <li><a href="#home">Home</a></li>
-            <li><a href="#login" id="loginLink">Login</a></li>
             <li><a href="#registro" id="registroLink">Registro</a></li>
-            <div class="logo">
-                <img src="img/Logo.png" alt="Logo de la página">
-            </div>
+            <li><a href="#login" id="loginLink">Login</a></li>
             <li><a href="#perfil" id="perfilLink" style="display:none;">Perfil</a></li>
+            
+            <div class="logo">
+                <img src="img/Logo.png" alt="Logo de la página" class="navLogo">
+            </div>         
+            <li><a href="#quienes-somos" id="quienesSomosLink">Quienes somos</a></li>
             <li><a href="#artistas" id="artistasLink">Artistas</a></li>
             <li><a href="#ranking" id="rankingLink">Ranking de Fans</a></li>
         </ul>
     </nav> 
 
+<!-------------------- A partir de aquí estan las secciones por las que se puede navegar en la página ----------------->
     <main>
         <section id="home" class="active">
             <h2>The Golden Sticks Records</h2>
             <p>Estudio musical</p>
         </section>
+
         <section id="login">
             <h2>Login</h2>
             <form id="loginForm">
@@ -265,6 +291,21 @@
                 <input type="submit" value="Login">
             </form>
         </section>
+
+                
+        <section id="quienes-somos">
+            <h2>Quienes somos</h2>
+            <p>The Golden Sticks Records fue concebido el año 2023 por sus fundadores Santiz Rivera, 
+                Fumador de flores, y Amesti. Comprometido con su trabajo Santi Rivera opera como productor
+                de los beats y también como ingeniero de sonido, el es quien realiza y entrega el máster 
+                del producto final. Amesti destaca por sus habilidades en composición musical, confección
+                de letras, coach, y cantante. Fumador de flores funcionaba como beatmaker y cantante, 
+                pero decide abandonar por motivos personales. Con la salida de Fumador de flores se produce
+                una vacante que fue rápidamente ocupada por Haiko quien es un talentoso beatmaker y cantante.
+                Actualmente buscamos talento que quiera sumarse a nuestras filas.
+            </p>
+        </section>
+        
         <section id="artistas">
             <table>
                 <thead>
@@ -404,11 +445,14 @@
                 <input type="text" id="lastName" placeholder="Apellidos" required>
                 <input type="email" id="email" placeholder="Email" required>
                 <input type="password" id="password" placeholder="Password" required>
+                <label for="mayorEdad">
+                    <input type="checkbox" id="mayorEdad" required> Soy mayor de 18 años
+                </label>
                 <input type="submit" value="Register">
             </form>
         </section>
 
-<!-------------- Tabla de fans ------------------------------------------------------>
+        
         <section id="ranking">
             <h2>Ranking de Fans</h2>
             <table>
@@ -418,17 +462,19 @@
                         <th>Nombre</th>
                         <th>Apellidos</th>                      
                         <th>Mensaje</th>
+                        <th>Fecha de registro</th>
                     </tr>
                 </thead>
                 <tbody id="fansList">
-                    <!-- Aquí se listarán todos los fans registrados -->
+                    <!-------------- Aquí se listarán todos los fans registrados ---------------->
                 </tbody>
             </table>
         </section>
+
         <section id="perfil">
             <h2>Perfil de Usuario</h2>
             <div id="userInfo">
-                <!-- Información del usuario se mostrará aquí -->
+                <!------------------- Información del usuario se mostrará aquí ------------------->
             </div>
             <h3>Editar Información Personal</h3>
             <form id="editperfilForm">
@@ -483,19 +529,43 @@
     </footer>
 
     <script>
+        // ---------------- Función n°1: Manejo de eventos de click en enlace de navegación -----------//
         document.querySelectorAll('nav ul li a').forEach(link => {
             link.addEventListener('click', function(event) {
                 event.preventDefault();
                 const sectionId = this.getAttribute('href') ? this.getAttribute('href').substring(1) : null;
                 document.querySelectorAll('main section').forEach(section => {
-                    section.classList.remove('active');
+                section.classList.remove('active');
                 });
                 if (sectionId) {
                     document.getElementById(sectionId).classList.add('active');
                 }
             });
         });
-
+        
+        // ---------------- Función n°2: Manejo de eventos de scroll para aplicar fade al logo del menú nav -----------//
+        window.addEventListener('scroll', function() {
+        const navLogo = document.querySelector('.navLogo');
+        if (window.scrollY > 100) {
+            navLogo.style.opacity = '0.2';
+        } else {
+            navLogo.style.opacity = '1';
+        }
+    });  
+        // ---------------- Función n°3: Manejo de eventos de scroll para aplicar fade al menú nav -----------//
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            
+            if (window.scrollY > 100) {
+                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';                                       
+            }             
+            else {
+                nav.style.backgroundColor = 'black';                                          
+            }
+        });
+         
+        
+        // ---------------- Función n°4: Manejo de eventos de formulario para registrar nuevo usuario -----------//
         document.getElementById('registroForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const newUser = {
@@ -503,7 +573,8 @@
                 firstName: document.getElementById('firstName').value,
                 lastName: document.getElementById('lastName').value,
                 email: document.getElementById('email').value,
-                password: document.getElementById('password').value
+                password: document.getElementById('password').value,
+                registrationDate: new Date().toLocaleDateString() // Formato de fecha legible
             };
 
             const users = JSON.parse(localStorage.getItem('users')) || [];
@@ -511,7 +582,8 @@
 
             if (duplicateUser) {
                 alert('Ya existe un usuario registrado con el mismo correo electrónico o rut.');
-            } else {
+            } 
+            else {
                 users.push(newUser);
                 localStorage.setItem('users', JSON.stringify(users));
                 alert('Usuario registrado con éxito!');
@@ -520,6 +592,7 @@
             }
         });
 
+        // ---------------- Función n°5: Manejo de eventos de formulario para iniciar sesión -----------//
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const email = document.getElementById('loginEmail').value;
@@ -543,6 +616,7 @@
             document.getElementById('loginForm').reset();
         });
 
+        // ---------------- Función n°6: Mostrar perfil de usuario -----------//
         function showProfile() {
             const storedUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
             if (storedUser) {
@@ -563,6 +637,7 @@
             }
         }
 
+        // ---------------- Función n°7: Editar usuarios registrados -----------//
         document.getElementById('editperfilForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const updatedUser = {
@@ -581,9 +656,14 @@
             showProfile();
         });
 
+        // ---------------- Función n°8: Cerrar sesión -----------//
+        // Se ejecuta al cargar la página para mostrar los fans registrados//
         document.getElementById('logoutLink').addEventListener('click', function(event) {
             event.preventDefault();
+            //Aqui se elimina el usuario logueado del sessionStorage//
             sessionStorage.removeItem('loggedInUser');
+
+            //Aqui se ocultan los enlaces de perfil y logout y se muestran los enlaces de login y registro//
             document.getElementById('perfilLink').style.display = 'none';
             document.getElementById('logoutLink').style.display = 'none';
             document.getElementById('loginLink').style.display = 'block';
@@ -593,23 +673,29 @@
             document.querySelectorAll('main section').forEach(section => {
                 section.classList.remove('active');
             });
+            //Aqui se muestra la sección de inicio//
             document.getElementById('home').classList.add('active');
         });
 
+        // ---- Función n°9: Se utiliza el metodo "map" para crear una tabla utilizando el contenido del array "users" ----//
         function showFansList() {
+            //Aqui se obtienen los usuarios registrados del localStorage//
             const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            //Aqui se obtiene el elemento HTML donde se mostrarán los fans registrados//
             const fansList = document.getElementById('fansList');
-            fansList.innerHTML = users.map((user, index) => `
+
+            //Aqui se utiliza el metodo "map" para crear una tabla con los datos de los usuarios registrados//
+            fansList.innerHTML = users.map((user, index) => ` 
                 <tr>
                     <td>${index +1 }</td>
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
                     <td>Tú eres el fan número ${index + 1}</td>
+                    <td>${user.registrationDate}</td>
                 </tr>
-            `).join('');
-        }
-
-        showFansList();
+            `).join(''); //Aqui se unen los elementos del array con un string vacío//
+        }  
     </script>
 </body>
 </html>
